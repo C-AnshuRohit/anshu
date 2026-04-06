@@ -1,0 +1,53 @@
+As a **DevOps engineer** with **2-3 years of experience**, you are typically considered a **mid-level** (or sometimes "experienced junior transitioning to mid-level") professional. At this stage, companies move you beyond basic task execution toward more ownership of **CI/CD pipelines**, infrastructure, and deployments — but with **guardrails** in place.
+
+Permissions and access levels vary significantly by company size, industry (e.g., fintech/banking is stricter), cloud provider, and team maturity. However, here's the **typical pattern** seen across most organizations:
+
+### 1. General Principle: Least Privilege + Gradual Trust
+- **Junior (0-2 years)**: Read-heavy + limited write access. Often needs approval for production changes.
+- **Mid-level (2-5 years)**: Write access to most non-production environments + controlled production access. You can deploy independently in dev/staging, but production often requires review/approval.
+- **Senior (5+ years)**: Broader admin rights, ability to design IAM policies, own infrastructure changes.
+
+At 2-3 years, you usually get **"power user"** or **"contributor + limited admin"** level access — enough to be productive without full root/admin rights.
+
+### 2. Typical Permissions by Area (2-3 Years Exp)
+
+| Area                        | Typical Permissions for 2-3 Yrs DevOps Engineer                                                                 | Notes / Common Restrictions |
+|----------------------------|------------------------------------------------------------------------------------------------------------------|-----------------------------|
+| **CI/CD Tools** (Jenkins, GitHub Actions, GitLab CI, Azure DevOps, ArgoCD) | Full access to create/edit/run pipelines in dev/staging. Deploy to production with approval gate or peer review. | Rarely full admin of the tool itself (e.g., manage agents, plugins, shared libraries). |
+| **Source Control** (GitHub/GitLab/Bitbucket) | Write + merge rights on repositories you work on. Can create branches, PRs, and approve merges in your team. | Cannot delete repositories or manage org-level settings. |
+| **Cloud Platforms** (AWS, Azure, GCP) | **AWS**: PowerUserAccess or custom policy (EC2, S3, ECS/EKS, Lambda, CloudFormation/Terraform full in dev/staging). Limited IAM, no Organization-level changes.<br>**Azure**: Contributor role on resource groups/subscriptions for your apps.<br>**GCP**: Editor role on projects. | No full **Administrator** / **Owner** role. Production changes often go through Terraform + approval or change management. IAM policy creation is usually restricted or reviewed. |
+| **Kubernetes** (EKS, AKS, GKE, or self-managed) | Can deploy apps (kubectl apply, helm upgrade), view logs, scale deployments in dev/staging namespaces.<br>Production: Often "edit" role in specific namespaces, not cluster-admin. | Cluster-admin or full cluster access is rare at this level (reserved for senior/Platform team). |
+| **Infrastructure as Code** (Terraform, Ansible, CloudFormation, ARM/Bicep) | Full ownership of IaC for your services/environments. Can plan & apply in lower environments. | Production applies usually require PR approval + terraform plan review. |
+| **Monitoring & Observability** (Prometheus, Grafana, ELK, Datadog, CloudWatch) | Read + create/edit dashboards, alerts for your services. Can set up new monitors. | Rarely delete historical data or manage billing/alert routing. |
+| **Secrets Management** (Vault, AWS Secrets Manager, Azure Key Vault) | Read secrets needed for your pipelines/apps. Sometimes ability to rotate or add new ones for your scope. | Write access is often limited or audited heavily. |
+| **Production Access** | SSH/RDP/console access to production servers/containers usually **restricted** or via bastion + just-in-time (JIT) access.<br>Deployment to prod = Yes (via pipeline), but manual changes = No or with approval. | Many companies use **just-in-time access** tools (e.g., AWS SSO, Teleport, Okta) so you request elevated access for a limited time. |
+
+### 3. Common Role Names & Access Groups at This Level
+- **DevOps Engineer** or **Site Reliability Engineer (Mid-level)**
+- In Azure DevOps → **Basic** access level + **Contributor** group (sometimes custom "DevOps Engineers" group)
+- In AWS → Attached to a custom IAM role like `DevOpsEngineer` or `PlatformEngineer-Medium`
+- In Kubernetes → Namespace-level `edit` role + sometimes `view` at cluster level
+
+### 4. What Usually Requires Higher/Senior Level Access (Rare at 2-3 Years)
+- Creating IAM users/roles/policies with broad permissions
+- Full **Organization Administrator** or **Subscription Owner**
+- Managing production databases (schema changes, backups)
+- Cluster-admin in Kubernetes
+- Billing/account-level changes
+- Root account or break-glass access
+
+### 5. Real-World Variations
+- **Startups/Small companies**: You might get quite broad access quickly (sometimes close to admin) because teams are small.
+- **Enterprises/Banks/Regulated industries**: Very strict — even mid-level engineers often need change advisory board (CAB) approval for prod changes.
+- **Mature Platform Teams**: You get good access within your application/team scope but not cross-team.
+
+### Advice as a DevOps Engineer
+At 2-3 years, focus on **demonstrating responsibility** with the access you have. Companies promote faster when they see you:
+- Follow IaC + GitOps practices
+- Write good Terraform/PRs that seniors can easily review
+- Don't cause incidents with your changes
+- Document and automate things
+
+If your current company gives you too little access (you always need senior approval even for dev changes), it might be time to look for a new role. If they give you too much without review processes, that's also a red flag for security.
+
+Would you like me to break this down for a **specific stack** (e.g., AWS + EKS + Terraform, or Azure DevOps + AKS)? Or compare with senior-level permissions?
